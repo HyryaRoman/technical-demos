@@ -1,0 +1,14 @@
+@use 'utils/_breakpoints' as *;
+@use 'sass:list';
+
+@mixin background-image($img, $layers...) {
+  @each $breakpoint, $_ in $breakpoints {
+    @include media-breakpoint-up($breakpoint) {
+      @if $layers {
+        background-image: list.join(($layers), (url('../../assets/img/#{$img}/#{$breakpoint}.webp')));
+      } @else {
+        background-image: url('../../assets/img/#{$img}/#{$breakpoint}.webp');
+      }
+    }
+  }
+}

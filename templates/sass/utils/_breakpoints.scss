@@ -1,0 +1,46 @@
+@use "sass:map";
+
+$breakpoints: (
+@@for (var i = 0; i < breakpoints.length; i++) {\
+${i > 0 ? ',\n  ' : '  '}"${breakpoints[i].name}": (
+    "min": ${breakpoints[i].min !== 'none' ? breakpoints[i].min : 'null'},
+    "max": ${breakpoints[i].max !== 'none' ? breakpoints[i].max : 'null'},
+    "up": ${breakpoints[i].media.up ? `"${breakpoints[i].media.up}"` : null},
+    "down": ${breakpoints[i].media.down ? `"${breakpoints[i].media.down}"` : null},
+    "exact": ${breakpoints[i].media.exact ? `"${breakpoints[i].media.exact}"` : null}
+  )\
+}@@
+);
+
+@mixin media-breakpoint-up($bp) {
+  $media: map.get($breakpoints, "#{$bp}", "up");
+  @if $media {
+    @media #{$media} {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin media-breakpoint-down($bp) {
+  $media: map.get($breakpoints, "#{$bp}", "down");
+  @if $media {
+    @media #{$media} {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin media-breakpoint-only($bp) {
+  $media: map.get($breakpoints, "#{$bp}", "exact");
+  @if $media {
+    @media #{$media} {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}

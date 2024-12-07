@@ -1,0 +1,7 @@
+<picture>
+   @@for (var i = 0; i < breakpoints.length; i++) {
+    <${(i === breakpoints.length - 1) ? "img" : "source"}
+     ${(i === breakpoints.length - 1) ? "src" : "srcmap"}="assets/img/@@img@@/${breakpoints[i].name}.webp"
+     ${(i === breakpoints.length - 1) ? ('class="@@class@@"') : ('media="' + breakpoints[i].media.exact + '"')}
+    />}@@
+</picture>

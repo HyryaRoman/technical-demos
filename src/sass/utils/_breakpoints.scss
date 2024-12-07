@@ -1,0 +1,65 @@
+@use "sass:map";
+
+$breakpoints: (
+  "mobile": (
+    "min": null,
+    "max": 600px,
+    "up": null,
+    "down": "(max-width: 599.98px)",
+    "exact": "(max-width: 599.98px)"
+  ),
+  "tablet": (
+    "min": 600px,
+    "max": 1200px,
+    "up": "(min-width: 600px)",
+    "down": "(max-width: 1199.98px)",
+    "exact": "(min-width: 600px) and (max-width: 1199.98px)"
+  ),
+  "desktop": (
+    "min": 1200px,
+    "max": 1600px,
+    "up": "(min-width: 1200px)",
+    "down": "(max-width: 1599.98px)",
+    "exact": "(min-width: 1200px) and (max-width: 1599.98px)"
+  ),
+  "desktop-wide": (
+    "min": 1600px,
+    "max": null,
+    "up": "(min-width: 1600px)",
+    "down": null,
+    "exact": "(min-width: 1600px)"
+  )
+);
+
+@mixin media-breakpoint-up($bp) {
+  $media: map.get($breakpoints, "#{$bp}", "up");
+  @if $media {
+    @media #{$media} {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin media-breakpoint-down($bp) {
+  $media: map.get($breakpoints, "#{$bp}", "down");
+  @if $media {
+    @media #{$media} {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin media-breakpoint-only($bp) {
+  $media: map.get($breakpoints, "#{$bp}", "exact");
+  @if $media {
+    @media #{$media} {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
